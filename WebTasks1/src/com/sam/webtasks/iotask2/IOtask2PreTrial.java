@@ -128,7 +128,7 @@ public class IOtask2PreTrial {
 				
 				//,1, below indicates the output that reminders have been selected
 				
-				final String data = IOtask2BlockContext.getTrialNum() + "," + IOtask2BlockContext.currentTargetValue() + ",1," + (int) (responseTime.getTime() - instructionStart.getTime()); 
+				final String data = IOtask2BlockContext.getBlockNum() + "," + IOtask2BlockContext.getTrialNum() + "," + IOtask2BlockContext.currentTargetValue() + ",1," + (int) (responseTime.getTime() - instructionStart.getTime()); 
 
 				RootPanel.get().remove(horizontalPanel);
 

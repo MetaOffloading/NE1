@@ -7,7 +7,22 @@ public class Instructions {
 		 
 		switch(index) {
 		case 0:
-			i="Here are some instructions.";
+			i="Instructions about dragging to the bottom";
+			break;
+		case 1:
+			i="Instructions about a single tarrget";
+			break;
+		case 2:
+			i="Instructions about the offloading strategy";
+			break;
+		case 3:
+			i="Forced internal trial, no feedback group.";
+			break;
+		case 4:
+			i="Forced external trial, no feedback group.";
+			break;
+		case 5:
+			i="Instructions about strategy choice and point scoring";
 			break;
 		}
 
