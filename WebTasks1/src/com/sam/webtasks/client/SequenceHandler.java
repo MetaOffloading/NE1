@@ -127,7 +127,7 @@ public class SequenceHandler {
 				SequenceHandler.Next();
 				break;
 			case 11:
-				//forced external practice, possibly with prediction / feedback
+				//forced external practice, possibly with prediction / feedback 
 				ExtraNames.blockNum = 5;
 				SequenceHandler.SetLoop(5,  true);
 				SequenceHandler.Next();
@@ -355,7 +355,7 @@ public class SequenceHandler {
 				break;
 			}
 			break;
-		case 4: //practice IOtask2 loop, forced internal condition, potentially with metacogntive feedback
+		case 4: //practice IOtask2 loop, forced internal condition, potentially with metacognitive feedback
 			switch (sequencePosition.get(4)) {
 			case 1:
 				//instructions about first internal trial
@@ -407,7 +407,7 @@ public class SequenceHandler {
 				break;
 			}
 			break;
-		case 5:
+		case 5: //practice IOtask2 loop, forced external condition, potentially with metacognitive feedback
 			switch (sequencePosition.get(5)) {
 			case 1:
 				//instructions about first internal trial

@@ -43,5 +43,13 @@ public class Names {
 	//what experiment type is this?
 	public final static int EXPERIMENT_MTURK=0;      //experiment to be run on the MTurk platform
 	public final static int EXPERIMENT_STANDALONE=1; //experiment to be run without uploading to MTurk, e.g. on a tablet computer or on a desktop
+	
+	//which loop is this?
+	public final static int LOOP_MAIN=0;
+	public final static int LOOP_INITIALISE=1;
+	public final static int LOOP_IOTASK1=2;
+	public final static int LOOP_IOTASK2=3;
+    public final static int LOOP_IOTASK2_FORCEDINTERNALPRAC=4;
+    public final static int LOOP_IOTASK2_FORCEDEXTERNALPRAC=5;
 }
 
