@@ -33,6 +33,7 @@ import com.sam.webtasks.basictools.InfoSheet;
 import com.sam.webtasks.basictools.Initialise;
 import com.sam.webtasks.basictools.Names;
 import com.sam.webtasks.basictools.PHP;
+import com.sam.webtasks.basictools.ProgressBar;
 import com.sam.webtasks.basictools.Slider;
 import com.sam.webtasks.basictools.TimeStamp;
 import com.sam.webtasks.iotask1.IOtask1Block;
@@ -58,11 +59,17 @@ public class SequenceHandler {
 			 * The code here defines the main sequence of events in the experiment *
 			 **********************************************************************/
 			case 1:
+				Params.countdownTime = 180;
 				Window.alert("Counterbalancing group: " + Counterbalance.getFactorLevel("feedbackGroup"));
 				
 				ClickPage.Run(Instructions.Get(0), "Next");
 				break;
 			case 2:
+				//add progress bar to screen
+				ProgressBar.Initialise();
+				ProgressBar.Show();
+				ProgressBar.SetProgress(0,  25);
+				
 				IOtask2Block block0 = new IOtask2Block();
 				block0.totalCircles = 8;
 				block0.nTargets = 0;
@@ -86,7 +93,9 @@ public class SequenceHandler {
 			case 5:
 				if (IOtask2BlockContext.getnHits() < 1) { //if there were fewer than 1 hits on the last trial
 					SequenceHandler.SetPosition(SequenceHandler.GetPosition()-2); //this line means that instead of moving forward we will repeat the previous instructions
-					ClickPage.Run("You didn't drag the special circle to the correct location.", "Please try again");
+					ProgressBar.Decrement();
+					ProgressBar.Decrement();
+					ClickPage.Run("You didn't drag the special circle to the correct location.", "Please try again");	
 				} else {
 					ClickPage.Run("Well done, that was correct.<br><br>Now it will get more difficult. "
 							+ "There will be a total of 25 circles, and 10 of them will be special ones "
@@ -111,6 +120,9 @@ public class SequenceHandler {
 			case 9:	
 				if (IOtask2BlockContext.getnHits() < 8) { //if there were fewer than 8 hits on the last trial
 					SequenceHandler.SetPosition(SequenceHandler.GetPosition()-2); //this line means that instead of moving forward we will repeat the previous instructions
+					ProgressBar.Decrement();
+					ProgressBar.Decrement();
+					
 					String msg = "You got " + IOtask2BlockContext.getnHits() + " out of 10 correct that time. You need to get at least 8 out of "
 							+ "10 correct to continue to the next part.<br><br>Please keep in mind that you can set reminders to help you remember. Each "
 							+ "time a special circle appears, you can immediately drag it next to the part of the box where it eventually needs to go. "
@@ -123,55 +135,55 @@ public class SequenceHandler {
 			case 10:
 				//forced internal practice, possibly with prediction / feedback
 				ExtraNames.blockNum = 4;
-				SequenceHandler.SetLoop(4,  true);
+				SequenceHandler.SetLoop(Names.LOOP_IOTASK2_FORCEDINTERNALPRAC,  true);
 				SequenceHandler.Next();
 				break;
 			case 11:
 				//forced external practice, possibly with prediction / feedback 
 				ExtraNames.blockNum = 5;
-				SequenceHandler.SetLoop(5,  true);
+				SequenceHandler.SetLoop(Names.LOOP_IOTASK2_FORCEDEXTERNALPRAC,  true);
 				SequenceHandler.Next();
 				break;
 			case 12:
 				//forced internal practice, possibly with prediction / feedback
 				ExtraNames.blockNum = 6;
-				SequenceHandler.SetLoop(4,  true);
+				SequenceHandler.SetLoop(Names.LOOP_IOTASK2_FORCEDINTERNALPRAC,  true);
 				SequenceHandler.Next();
 				break;
 			case 13:
 				//forced external practice, possibly with prediction / feedback
 				ExtraNames.blockNum = 7;
-				SequenceHandler.SetLoop(5,  true);
+				SequenceHandler.SetLoop(Names.LOOP_IOTASK2_FORCEDEXTERNALPRAC,  true);
 				SequenceHandler.Next();
 				break;
 			case 14:
 				//forced internal practice, possibly with prediction / feedback
 				ExtraNames.blockNum = 8;
-				SequenceHandler.SetLoop(4,  true);
+				SequenceHandler.SetLoop(Names.LOOP_IOTASK2_FORCEDINTERNALPRAC,  true);
 				SequenceHandler.Next();
 				break;
 			case 15:
 				//forced external practice, possibly with prediction / feedback
 				ExtraNames.blockNum = 9;
-				SequenceHandler.SetLoop(5,  true);
+				SequenceHandler.SetLoop(Names.LOOP_IOTASK2_FORCEDEXTERNALPRAC,  true);
 				SequenceHandler.Next();
 				break;
 			case 16:
 				//forced internal practice, possibly with prediction / feedback
 				ExtraNames.blockNum = 10;
-				SequenceHandler.SetLoop(4,  true);
+				SequenceHandler.SetLoop(Names.LOOP_IOTASK2_FORCEDINTERNALPRAC,  true);
 				SequenceHandler.Next();
 				break;
 			case 17:
 				//forced external practice, possibly with prediction / feedback
 				ExtraNames.blockNum = 11;
-				SequenceHandler.SetLoop(5,  true);
+				SequenceHandler.SetLoop(Names.LOOP_IOTASK2_FORCEDEXTERNALPRAC,  true);
 				SequenceHandler.Next();
 				break;
 			case 18:
 				//forced internal practice, possibly with prediction / feedback
 				ExtraNames.blockNum = 12;
-				SequenceHandler.SetLoop(4,  true);
+				SequenceHandler.SetLoop(Names.LOOP_IOTASK2_FORCEDINTERNALPRAC,  true);
 				SequenceHandler.Next();
 				break;
 			case 19:
@@ -191,6 +203,7 @@ public class SequenceHandler {
 				break;
 			case 24:
 				IOtask2Block block4 = new IOtask2Block();
+				block4.countdownTimer = true;
 				block4.onlyChoiceTrials = true;
 				block4.showPoints = true;
 				block4.blockNum = 13;
@@ -209,6 +222,20 @@ public class SequenceHandler {
 				PHP.logData("externalPred3", ""+Slider.getSliderValue(), true);
 				break;
 			case 29:
+				//***** log data and check that it saves
+				String data = SessionInfo.rewardCode + ",";
+				data = data + Counterbalance.getFactorLevel("feedbackGroup") + ",";
+				data = data + Counterbalance.getFactorLevel("buttonPositions") + ",";
+				data = data + Counterbalance.getFactorLevel("buttonColours") + ",";
+				data = data + IOtask2BlockContext.getTotalPoints() + ",";
+				data = data + SessionInfo.gender + ",";
+				data = data + SessionInfo.age + ",";
+				data = data + TimeStamp.Now();
+
+				PHP.logData("finish", data, true);
+				break;
+			case 30:
+				ProgressBar.Increment();
 				Finish.Run();
 				break;
 
@@ -375,6 +402,7 @@ public class SequenceHandler {
 				break;
 			case 3:
 				IOtask2Block trainIntBlock = new IOtask2Block();
+				trainIntBlock.countdownTimer = true;
 				trainIntBlock.blockNum = ExtraNames.blockNum;
 				trainIntBlock.offloadCondition = Names.REMINDERS_NOTALLOWED;
 				trainIntBlock.Run();
@@ -427,6 +455,7 @@ public class SequenceHandler {
 				break;
 			case 3:
 				IOtask2Block trainExtBlock = new IOtask2Block();
+				trainExtBlock.countdownTimer = true;
 				trainExtBlock.blockNum = ExtraNames.blockNum;
 				trainExtBlock.offloadCondition = Names.REMINDERS_MANDATORY_TARGETONLY;
 				trainExtBlock.Run();
@@ -454,7 +483,7 @@ public class SequenceHandler {
 				break;	
 			case 5:
 				//back to main sequence
-				SequenceHandler.SetLoop(0,  false);
+				SequenceHandler.SetLoop(Names.LOOP_MAIN,  false);
 				SequenceHandler.Next();
 				break;
 			}

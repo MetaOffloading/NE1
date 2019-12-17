@@ -9,11 +9,13 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.sam.webtasks.basictools.Names;
 import com.sam.webtasks.basictools.PHP;
+import com.sam.webtasks.iotask2.IOtask2BlockContext;
 
 public class Finish {
 	public static void Run() {
 		if (SessionInfo.experimentType == Names.EXPERIMENT_MTURK) {
-			final HTML goodbyeText = new HTML("Thank you for taking part.<br><br>If you would like "
+			final HTML goodbyeText = new HTML("Thank you for taking part. You scored a total of " + IOtask2BlockContext.getTotalPoints() + " points"
+					+ "<br><br>If you would like "
 					+ "to contact the experimenter you can email "
 					+ "<a href=\"mailto:sam.gilbert@ucl.ac.uk\">sam.gilbert@ucl.ac.uk</a>."
 					+ "<br><br>To receive your payment "

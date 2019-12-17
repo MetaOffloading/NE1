@@ -84,10 +84,16 @@ public class IOtask2RunTrial {
 			}
 		};
 
-		ProgressBar.SetProgress(Params.progress++, (2 * Params.nTrials) + 1);
+		//this was included previously to automatically update the progress bar
+		//ProgressBar.SetProgress(Params.progress++, (2 * Params.nTrials) + 1);
 
 		// get block context
 		IOtask2Block block = IOtask2BlockContext.getContext();
+		
+		// increment progress?
+		if (block.updateProgress) {
+			ProgressBar.Increment();
+		}
 
 		// set up labels to put inside circles
 		final String[] labels = new String[block.nCircles];
