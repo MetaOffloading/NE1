@@ -298,7 +298,7 @@ public class IOtask2Block {
 		/*
 		 * now start subloop 3 of the sequence handler, which runs a trial of the task
 		 */
-		SequenceHandler.SetLoop(3, true);
+		SequenceHandler.SetLoop(Names.LOOP_IOTASK2, true);
 		SequenceHandler.Next();
 	}
 

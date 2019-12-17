@@ -98,7 +98,7 @@ public class SequenceHandler {
 					ClickPage.Run("You didn't drag the special circle to the correct location.", "Please try again");	
 				} else {
 					ClickPage.Run("Well done, that was correct.<br><br>Now it will get more difficult. "
-							+ "There will be a total of 25 circles, and 10 of them will be special ones "
+							+ "There will be a total of 25 circles, and many of them will be special ones "
 							+ "that should go to one of the coloured sides of the box.<br><br>Don't worry if you "
 							+ "do not remember all of them. That's fine - just try to remember as many as you can.", "Next");
 				}
@@ -123,8 +123,8 @@ public class SequenceHandler {
 					ProgressBar.Decrement();
 					ProgressBar.Decrement();
 					
-					String msg = "You got " + IOtask2BlockContext.getnHits() + " out of 10 correct that time. You need to get at least 8 out of "
-							+ "10 correct to continue to the next part.<br><br>Please keep in mind that you can set reminders to help you remember. Each "
+					String msg = "You got " + IOtask2BlockContext.getnHits() + " correct that time. You need to get at least 8 "
+							+ "correct to continue to the next part.<br><br>Please keep in mind that you can set reminders to help you remember. Each "
 							+ "time a special circle appears, you can immediately drag it next to the part of the box where it eventually needs to go. "
 							+ "This should help reminder you what to do when you get to that circle in the sequence.";
 					ClickPage.Run(msg, "Try again");		
@@ -133,95 +133,103 @@ public class SequenceHandler {
 				}
 				break;
 			case 10:
+				//explain about scoring points
+				ClickPage.Run(Instructions.Get(3), "Next");
+				break;
+			case 11:
 				//forced internal practice, possibly with prediction / feedback
 				ExtraNames.blockNum = 4;
 				SequenceHandler.SetLoop(Names.LOOP_IOTASK2_FORCEDINTERNALPRAC,  true);
 				SequenceHandler.Next();
 				break;
-			case 11:
+			case 12:
 				//forced external practice, possibly with prediction / feedback 
 				ExtraNames.blockNum = 5;
 				SequenceHandler.SetLoop(Names.LOOP_IOTASK2_FORCEDEXTERNALPRAC,  true);
 				SequenceHandler.Next();
 				break;
-			case 12:
+			case 13:
 				//forced internal practice, possibly with prediction / feedback
 				ExtraNames.blockNum = 6;
 				SequenceHandler.SetLoop(Names.LOOP_IOTASK2_FORCEDINTERNALPRAC,  true);
 				SequenceHandler.Next();
 				break;
-			case 13:
+			case 14:
 				//forced external practice, possibly with prediction / feedback
 				ExtraNames.blockNum = 7;
 				SequenceHandler.SetLoop(Names.LOOP_IOTASK2_FORCEDEXTERNALPRAC,  true);
 				SequenceHandler.Next();
 				break;
-			case 14:
+			case 15:
 				//forced internal practice, possibly with prediction / feedback
 				ExtraNames.blockNum = 8;
 				SequenceHandler.SetLoop(Names.LOOP_IOTASK2_FORCEDINTERNALPRAC,  true);
 				SequenceHandler.Next();
 				break;
-			case 15:
+			case 16:
 				//forced external practice, possibly with prediction / feedback
 				ExtraNames.blockNum = 9;
 				SequenceHandler.SetLoop(Names.LOOP_IOTASK2_FORCEDEXTERNALPRAC,  true);
 				SequenceHandler.Next();
 				break;
-			case 16:
+			case 17:
 				//forced internal practice, possibly with prediction / feedback
 				ExtraNames.blockNum = 10;
 				SequenceHandler.SetLoop(Names.LOOP_IOTASK2_FORCEDINTERNALPRAC,  true);
 				SequenceHandler.Next();
 				break;
-			case 17:
+			case 18:
 				//forced external practice, possibly with prediction / feedback
 				ExtraNames.blockNum = 11;
 				SequenceHandler.SetLoop(Names.LOOP_IOTASK2_FORCEDEXTERNALPRAC,  true);
 				SequenceHandler.Next();
 				break;
-			case 18:
+			case 19:
 				//forced internal practice, possibly with prediction / feedback
 				ExtraNames.blockNum = 12;
 				SequenceHandler.SetLoop(Names.LOOP_IOTASK2_FORCEDINTERNALPRAC,  true);
 				SequenceHandler.Next();
 				break;
-			case 19:
-				Slider.Run("Global internal prediction", "0%", "100%");
-				break;
 			case 20:
-				PHP.logData("internalPred1", ""+Slider.getSliderValue(), true);
+				Slider.Run(Instructions.Get(6), "0%", "100%");
 				break;
 			case 21:
-				Slider.Run("Global external prediction", "0%", "100%");
-			    break;
+				PHP.logData("internalPred1", ""+Slider.getSliderValue(), true);
+				break;
 			case 22:
+				Slider.Run(Instructions.Get(7), "0%", "100%");
+			    break;
+			case 23:
 				PHP.logData("externalPred1", ""+Slider.getSliderValue(), true);
 				break;
-			case 23:
-				ClickPage.Run(Instructions.Get(5), "Next");
-				break;
 			case 24:
+				ClickPage.Run(Instructions.Get(8), "Next");
+				break;
+			case 25:
+				ClickPage.Run(Instructions.Get(9), "Next");
+				break;
+			case 26:
 				IOtask2Block block4 = new IOtask2Block();
+				block4.totalPoints = IOtask2BlockContext.getTotalPoints();
 				block4.countdownTimer = true;
 				block4.onlyChoiceTrials = true;
 				block4.showPoints = true;
 				block4.blockNum = 13;
 				block4.Run();
 				break;
-			case 25:
-				Slider.Run("Global internal prediction", "0%", "100%");
+			case 27:
+				Slider.Run(Instructions.Get(10), "0%", "100%");
 				break;
-			case 26:
+			case 28:
 				PHP.logData("internalPred2", ""+Slider.getSliderValue(), true);
 				break;
-			case 27:
-				Slider.Run("Global external prediction", "0%", "100%");
-			    break;
-			case 28:
-				PHP.logData("externalPred3", ""+Slider.getSliderValue(), true);
-				break;
 			case 29:
+				Slider.Run(Instructions.Get(11), "0%", "100%");
+			    break;
+			case 30:
+				PHP.logData("externalPred2", ""+Slider.getSliderValue(), true);
+				break;
+			case 31:
 				//***** log data and check that it saves
 				String data = SessionInfo.rewardCode + ",";
 				data = data + Counterbalance.getFactorLevel("feedbackGroup") + ",";
@@ -234,7 +242,7 @@ public class SequenceHandler {
 
 				PHP.logData("finish", data, true);
 				break;
-			case 30:
+			case 32:
 				ProgressBar.Increment();
 				Finish.Run();
 				break;
@@ -387,10 +395,16 @@ public class SequenceHandler {
 			case 1:
 				//instructions about first internal trial
 				if (Counterbalance.getFactorLevel("feedbackGroup") == ExtraNames.NO_FEEDBACK_GROUP) {
-					ClickPage.Run(Instructions.Get(3), "Next");
+					ClickPage.Run(Instructions.Get(4), "Next");
 					break;
 				} else { //feedback group
-					Slider.Run("Internal prediction", "0%", "100%");
+					Slider.Run("You have scored " + IOtask2BlockContext.getTotalPoints() + " points so far.<br><br>Now, you "
+							+ "will have to do the task just using your <b>own memory</b>, and the computer will not let you set any reminders.<br><br>"
+							+ "We would like you predict how well you will do at the task. Please use the slider below to indicate what "
+							+ "percentage of the special circles you will correctly drag to the instructed side of the square next time you "
+							+ "do the task. 100% means you will get every single one correct, and 0% means you will not get any of them correct. "
+							+ "Please bear in mind that you will have to use your <b>own memory</b> and you will not be able to set any "
+							+ "reminders.", "0%", "100%");
 					break;
 				}
 			case 2:
@@ -402,6 +416,8 @@ public class SequenceHandler {
 				break;
 			case 3:
 				IOtask2Block trainIntBlock = new IOtask2Block();
+				trainIntBlock.totalPoints = IOtask2BlockContext.getTotalPoints();
+				trainIntBlock.actualPoints = trainIntBlock.maxPoints;
 				trainIntBlock.countdownTimer = true;
 				trainIntBlock.blockNum = ExtraNames.blockNum;
 				trainIntBlock.offloadCondition = Names.REMINDERS_NOTALLOWED;
@@ -414,15 +430,15 @@ public class SequenceHandler {
 					String feedbackMessage = "";
 
 					if (percentCorrect < Slider.getSliderValue()) {
-						feedbackMessage = "You overestimated your memory ability";
+						feedbackMessage = "You overestimated your memory ability.";
 					} else if (percentCorrect > Slider.getSliderValue()) {
-						feedbackMessage = "You underestimated your memory ability";
+						feedbackMessage = "You underestimated your memory ability.";
 					} else {
-						feedbackMessage = "You accurately estimated your memory ability";
+						feedbackMessage = "You accurately estimated your memory ability.";
 					}
 
-					ClickPage.Run("You predicted " + Slider.getSliderValue() + "% <br> You got " 
-							+ percentCorrect + "% <br> " + feedbackMessage, "Next");
+					ClickPage.Run("You predicted that you would get " + Slider.getSliderValue() + "% correct.<br><br> You actually got " 
+							+ percentCorrect + "% correct.<br><br> " + feedbackMessage, "Next");
 					break;
 				} else {
 					SequenceHandler.Next();
@@ -440,10 +456,16 @@ public class SequenceHandler {
 			case 1:
 				//instructions about first internal trial
 				if (Counterbalance.getFactorLevel("feedbackGroup") == ExtraNames.NO_FEEDBACK_GROUP) {
-					ClickPage.Run(Instructions.Get(4), "Next");
+					ClickPage.Run(Instructions.Get(5), "Next");
 					break;
 				} else { //feedback group
-					Slider.Run("External prediction", "0%", "100%");
+					Slider.Run("You have scored " + IOtask2BlockContext.getTotalPoints() + " points so far.<br><br>Now, you "
+							+ "will have to do the task setting <b>reminders</b> for every special circle. The computer will only let you continue "
+							+ "if you set reminders for all of the special circles.<br><br>"
+							+ "We would like you predict how well you will do at the task. Please use the slider below to indicate what "
+							+ "percentage of the special circles you will correctly drag to the instructed side of the square next time you "
+							+ "do the task. 100% means you will get every single one correct, and 0% means you will not get any of them correct. "
+							+ "Please bear in mind that you will have to set <b>reminders</b> for all of the circles.", "0%", "100%");
 					break;
 				}
 			case 2:
@@ -455,6 +477,8 @@ public class SequenceHandler {
 				break;
 			case 3:
 				IOtask2Block trainExtBlock = new IOtask2Block();
+				trainExtBlock.totalPoints = IOtask2BlockContext.getTotalPoints();
+				trainExtBlock.actualPoints = trainExtBlock.maxPoints;
 				trainExtBlock.countdownTimer = true;
 				trainExtBlock.blockNum = ExtraNames.blockNum;
 				trainExtBlock.offloadCondition = Names.REMINDERS_MANDATORY_TARGETONLY;
@@ -467,15 +491,15 @@ public class SequenceHandler {
 					String feedbackMessage = "";
 
 					if (percentCorrect < Slider.getSliderValue()) {
-						feedbackMessage = "You overestimated your ability with reminders";
+						feedbackMessage = "You overestimated your ability with reminders.";
 					} else if (percentCorrect > Slider.getSliderValue()) {
-						feedbackMessage = "You underestimated your ability with reminders";
+						feedbackMessage = "You underestimated your ability with reminders.";
 					} else {
-						feedbackMessage = "You accurately estimated your ability with reminders";
+						feedbackMessage = "You accurately estimated your ability with reminders.";
 					}
 
-					ClickPage.Run("You predicted " + Slider.getSliderValue() + "% <br> You got " 
-							+ percentCorrect + "% <br> " + feedbackMessage, "Next");
+					ClickPage.Run("You predicted that you would get " + Slider.getSliderValue() + "% correct.<br><br> You actually got " 
+							+ percentCorrect + "% correct.<br><br> " + feedbackMessage, "Next");
 					break;
 				} else {
 					SequenceHandler.Next();
